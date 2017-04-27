@@ -98,29 +98,22 @@
     });
     </script>
 
-    <!-- add option -->
+    <!-- add/remove button-->
     <script>
     var counter=2;
     $(document).ready(function() {
         $("#add").click(function() {
-
-            //$("ul").append('<li class="buffer">').attr('id', $(id)).append($('<input type="radio"/> <input type="text">'));
-
-    //        var x = thisthing();
             counter++
             $(".option-list").append("<li class='buffer "+ counter +"'> <input type='radio' name='option'/> <input type='text' placeholder='option " + counter + "'> </li>");
         });
 
-        // need to fix to remove only newest object
-        // currently removes all newly added objects
         $("#remove").click(function() {
             $("."+counter).remove();
-            counter--
+            if (counter > 2) {
+                counter--
+            }
         });
-
     });
-
-
     </script>
 
 
