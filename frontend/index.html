@@ -63,8 +63,8 @@
                 </div>
                 <div class="row buffer">
                     <div class="col-1g-12">
-                        <input type="button" value="CREATE" class="buffer" id="create">
-                        <input type="button" value="VOTE" class="buffer onClick="location.href='voter/index.html'">
+                        <input type="button" value="CREATE" class="buffer" onClick=window.location="creator/index.html">
+                        <input type="button" value="VOTE" class="buffer" onClick=window.location="voter/index.html">
                     </div>
                 </div>
             </div>
@@ -87,6 +87,15 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
+
+    <!-- create -->
+    <script>
+    function create() {
+        window.open(creator/index.html);
+    }
+    </script>
+
+<script>
 
 </body>
 
