@@ -63,7 +63,7 @@
                 <div class="row buffer">
                     Poll Name: <input type="text"/>
                     <form>
-                        <ul>
+                        <ul class="option-list">
                             <li class="buffer">
                                 <input type="radio" name="option"/>
                                 <input type="text" placeholder="option 1"/>
@@ -103,9 +103,11 @@
     $(document).ready(function() {
         $("#add").click(function() {
             //$("ul").append('<li class="buffer">').attr('id', $(id)).append($('<input type="radio"/> <input type="text">'));
-            $("ul").append("<li class='buffer r'> <input type='radio' name='option'/> <input type='text'> </li>");
+            $(".option-list").append("<li class='buffer r'> <input type='radio' name='option'/> <input type='text'> </li>");
         });
 
+        // need to fix to remove only newest object
+        // currently removes all newly added objects
         $("#remove").click(function() {
             $(".r").remove();
         });

@@ -1,0 +1,13 @@
+.buffer {
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+ul {
+    list-style-type:none;
+}
+
+h5 {
+    display:inline;
+    margin-left:20px;
+}
