@@ -26,6 +26,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    table, td {
+        border: 2px solid black;
+        width: 1000px;
+        height: 44px;
+    }
+    </style>
 
 </head>
 
@@ -82,20 +89,28 @@
 
 <!-- adds cells to table -->
     <script>
+    var counter=0;
     function myFunction() {
+      var x0 = "AAAAA";
+      var x1 = "BBBBB"
         var x = document.createElement("TABLE");
-        x.setAttribute("id", "myTable");
+        x.setAttribute("id", "myTable"+counter);
         document.body.appendChild(x);
 
         var y = document.createElement("TR");
-        y.setAttribute("id", "myTr");
-        document.getElementById("myTable").appendChild(y);
+        y.setAttribute("id", "myTr"+counter);
+        document.getElementById("myTable"+counter).appendChild(y);
+        document.getElementById("myTable"+counter).appendChild(y);
 
-        var z = document.createElement("TD");
-        var t = document.createTextNode('"Title of poll here"');
+        for ( i=0 ; i < 2 ; i++) {
+          var z = document.createElement("TD");
+          var t = document.createTextNode( eval('x'+i) );
         z.appendChild(t);
-        document.getElementById("myTr").appendChild(z);
-    }
+        document.getElementById("myTable"+counter).appendChild(z);
+
+      }
+        counter++;
+        }
     </script>
 
 
