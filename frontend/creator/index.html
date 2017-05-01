@@ -60,23 +60,25 @@
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
-                <div class="row buffer">
-                    Poll Name: <input type="text"/>
-                    <form>
-                        <ul class="option-list">
-                            <li class="buffer">
-                                <input type="radio" name="option"/>
-                                <input type="text" placeholder="option 1"/>
-                            </li>
-                            <li class="option buffer">
-                                <input type="radio" name="option"/>
-                                <input type="text" placeholder="option 2"/>
-                            </li>
-                        </ul>
-                    </form>
-                    <input type="button" id="add" value="add"/>
-                    <input type="button" id="remove" value="remove"/>
-                </div>
+                <form action="database.php" method="post">
+                    <div class="row buffer">
+                        Poll Name: <input type="text" name="poll_name"/>
+                        <form> <ul class="option-list">
+                                <li class="buffer">
+                                    <input type="radio" name="option"/>
+                                    <input type="text" placeholder="option 1"/>
+                                </li>
+                                <li class="option buffer">
+                                    <input type="radio" name="option"/>
+                                    <input type="text" placeholder="option 2"/>
+                                </li>
+                            </ul>
+                        </form>
+                        <input type="button" id="add" value="add"/>
+                        <input type="button" id="remove" value="remove"/>
+                        <input type="submit">
+                    </div>
+                </form>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
