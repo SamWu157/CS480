@@ -4,8 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -45,7 +44,7 @@
                     <a href="../creator/index.html">Create</a>
                 </li>
                 <li>
-                    <a href="index.html">Vote</a>
+                    <a href="index.php">Vote</a>
                 </li>
             </ul>
         </div>
@@ -54,7 +53,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row buffer">
                     <div class="col-lg-12">
                         <h1>Vote</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
@@ -76,6 +75,47 @@
                     <input type="button" value="submit" class= "buffer" id="submit">
                 </div>
                 -->
+                <div class="row buffer">
+                <?php
+                $servername = "localhost";
+                $username = "cs480";
+                $password = "password";
+                $database = "polls";
+
+                // connect
+                $conn = new mysqli($servername, $username, $password, $database);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error());
+                }
+
+                // tables query
+                $sql = "SHOW TABLES";
+                $response = $conn->query($sql);
+
+                if ($response) {
+                    echo '<table style="width:100%"> 
+                            <tr>
+                            <th>Polls</th>
+                            </tr>';
+                    while ($row = $response->fetch_row()) {
+                        $poll = $row[0];
+                        echo '<tr><td>' .
+                            '<a href="poll.php?poll=' .
+                            $poll . '">' .
+                            $row[0] . '</a>' .
+                            '<input type="hidden" value="' .
+                            $row[0] . '">' .
+                            '</td>';
+                        echo '</tr>';
+                    }
+                    echo '</table>';
+                } else {
+                    echo "No polls found";
+                }
+
+                $conn->close();
+                ?>
+                </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

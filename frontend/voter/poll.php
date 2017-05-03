@@ -4,8 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -45,7 +44,7 @@
                     <a href="../creator/index.html">Create</a>
                 </li>
                 <li>
-                    <a href="index.html">Vote</a>
+                    <a href="index.php">Vote</a>
                 </li>
             </ul>
         </div>
@@ -54,7 +53,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row buffer">
                     <div class="col-lg-12">
                         <h1>Vote</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
@@ -76,6 +75,43 @@
                     <input type="button" value="submit" class= "buffer" id="submit">
                 </div>
                 -->
+                <div class="row buffer">
+                <?php
+                $servername = "localhost";
+                $username = "cs480";
+                $password = "password";
+                $database = "polls";
+
+                // connect
+                $conn = new mysqli($servername, $username, $password, $database);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error());
+                }
+
+                // tables query
+                $poll = $_GET['poll'];
+                $sql = "SELECT * FROM `". $poll . "`";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    echo "<form action='todo.html' method='post'>" .
+                        "<h3>" . $poll . "</h3>" .
+                        "<ul>";
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<li class='buffer'>" .
+                            "<input type='radio' name='option'>" .
+                            "<h5>" . $row["opt"] . "</h5>" .
+                            "</li>";
+                    }
+                    echo "</ul> <input type='submit' value='submit'>" .
+                        "</form>";
+                } else {
+                    echo "Error: poll not found";
+                }
+
+                $conn->close();
+                ?>
+                </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

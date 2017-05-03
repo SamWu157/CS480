@@ -45,7 +45,7 @@
                     <a href="#">Create</a>
                 </li>
                 <li>
-                    <a href="../voter/index.html">Vote</a>
+                    <a href="../voter/index.php">Vote</a>
                 </li>
             </ul>
         </div>
@@ -63,7 +63,7 @@
                 <form action="database.php" method="post">
                     <div class="row buffer">
                         Poll Name: <input type="text" name="poll_name"/>
-                        <form> <ul class="option-list">
+                        <ul class="option-list">
                                 <li class="buffer">
                                     <input type="radio" name="option"/>
                                     <input type="text" placeholder="option 1" name="option_1"/>
@@ -73,7 +73,6 @@
                                     <input type="text" placeholder="option 2" name="option_2"/>
                                 </li>
                             </ul>
-                        </form>
                         <input type="button" id="add" value="add"/>
                         <input type="button" id="remove" value="remove"/>
                         <input type="hidden" id="counter" name="counter">
