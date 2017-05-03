@@ -27,22 +27,35 @@ if ($conn->connect_error) {
 }
 
 // sql to create table
-$table = "`test poll`";
-$sql = "CREATE TABLE " . $table . " (opt TEXT)";
-if ($conn->query($sql) === TRUE) {
-    echo "TABLE " . $table . " created successfully\n";
+if (empty($_POST["poll_name"])) {
+    echo "Error: Poll Name cannot be empty";
 } else {
-    echo "Error creating table: " . $conn->error;
-    echo "\n";
-}
+    echo $_POST["counter"] . " ";
+    $counter = $_POST["counter"];
+    $option = array();
+    for ($x = 0; $x < counter; $x++) {
+        if (empty($_POST["option " . $x])) {
+            echo "empty option ";
+        } else {
+            //array_push($option, $_POST["option " . $x];
+        }
+    }
+    $table = "`" . $_POST["poll_name"] . "`";
+    $sql = "CREATE TABLE " . $table . " (opt TEXT)";
+    if ($conn->query($sql) === TRUE) {
+        echo "TABLE " . $table . " created successfully\n";
+    } else {
+        echo "Error creating table: " . $conn->error;
+        echo "\n";
+    }
 
-// init table
-$option = array("option 1", "option 2");
-foreach ($option as $o) {
-    $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')"; 
-    $conn->query($sql);
+    // init table
+    $option = array("option 1", "option 2");
+    foreach ($option as $o) {
+        $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')"; 
+        $conn->query($sql);
+    }
 }
-
 
 $conn->close();
 ?>
