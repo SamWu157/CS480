@@ -69,7 +69,8 @@
                 $poll_name = $_POST["poll_name"];
                 $choice = $_POST["opt"];
                 echo "<b>Poll: </b>" . $poll_name . "<br>";
-                echo "<b>Choice: </b>" . $choice;
+                echo "<b>Choice: </b>" . $choice . "<br>";
+                echo "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'";
                 ?>
                 </div>
             </div>

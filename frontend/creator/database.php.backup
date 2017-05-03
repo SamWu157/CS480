@@ -1,3 +1,5 @@
+<html>
+<body>
 <?php
 $servername = "localhost";
 $username = "cs480";
@@ -30,19 +32,26 @@ if (empty($_POST["poll_name"])) {
         $table = "`" . $_POST["poll_name"] . "`";
         $sql = "CREATE TABLE " . $table . " (opt TEXT)";
         if ($conn->query($sql) === TRUE) {
-            echo "TABLE " . $table . " created successfully\n";
             // init table
             foreach ($option as $o) {
                 $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')"; 
                 $conn->query($sql);
             }
+
+            // success
+            echo "<div class='row buffer'>";
+            echo "<b>Poll Created: </b>" . $_POST["poll_name"];
+            echo "</div>";
         } else {
             echo "Error creating table: " . $conn->error;
         }
     } else {
         echo "Error: empty option";
     }
+    echo "<div class='row buffer'> <input type='button' value='back' class='buffer' onClick=window.location='../index.html'> </div>";
 }
 
 $conn->close();
 ?>
+</body>
+</html>
