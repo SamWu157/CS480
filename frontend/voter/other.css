@@ -11,3 +11,11 @@ h5 {
     display:inline;
     margin-left:20px;
 }
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+}

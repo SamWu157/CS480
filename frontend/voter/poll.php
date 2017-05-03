@@ -94,12 +94,15 @@
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    echo "<form action='todo.html' method='post'>" .
+                    echo "<form action='submit.php' method='post'>" .
                         "<h3>" . $poll . "</h3>" .
+                        "<input type='hidden' name='poll_name'" .
+                        " value='" . $poll . "'>" .
                         "<ul>";
                     while ($row = $result->fetch_assoc()) {
                         echo "<li class='buffer'>" .
-                            "<input type='radio' name='option'>" .
+                            "<input type='radio' name='opt'" .
+                            " value='" . $row["opt"] . "'>" .
                             "<h5>" . $row["opt"] . "</h5>" .
                             "</li>";
                     }

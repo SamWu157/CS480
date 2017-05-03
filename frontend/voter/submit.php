@@ -4,18 +4,17 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>Simple Sidebar - Start Bootstrap Template</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
     <!-- Other CSS -->
     <link href="other.css" rel="stylesheet">
@@ -37,18 +36,18 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
+                    <a href="../index.html">
                         Blockchain Poll
                     </a>
                 </li>
                 <li>
-                    <a href="creator/index.html">Create</a>
+                    <a href="../creator/index.html">Create</a>
                 </li>
                 <li>
-                    <a href="voter/index.php">Vote</a>
+                    <a href="index.php">Vote</a>
                 </li>
                 <li>
-                    <a href="about/index.html">About</a>
+                    <a href="../about/index.html">Team</a>
                 </li>
             </ul>
         </div>
@@ -57,18 +56,21 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row buffer">
                     <div class="col-lg-12">
-                        <h1>Blockchain Poll</h1>
-                        <p>A polling app which allows users to create polls and vote on polls created by other users. Utilizes blockchain to store results.</p>
+                        <h1>Vote</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
                 <div class="row buffer">
-                    <div class="col-1g-12">
-                        <input type="button" value="CREATE" class="buffer" onClick=window.location="creator/index.html">
-                        <input type="button" value="VOTE" class="buffer" onClick=window.location="voter/index.php">
-                    </div>
+                <h3>Vote Submitted</h3>
+                <p>*need to add blockchain integration</p>
+                <?php
+                $poll_name = $_POST["poll_name"];
+                $choice = $_POST["opt"];
+                echo "<b>Poll: </b>" . $poll_name . "<br>";
+                echo "<b>Choice: </b>" . $choice;
+                ?>
                 </div>
             </div>
         </div>
@@ -78,10 +80,10 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -90,16 +92,5 @@
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-
-    <!-- create -->
-    <script>
-    function create() {
-        window.open(creator/index.html);
-    }
-    </script>
-
-<script>
-
 </body>
-
 </html>
