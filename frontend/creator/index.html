@@ -66,11 +66,11 @@
                         <form> <ul class="option-list">
                                 <li class="buffer">
                                     <input type="radio" name="option"/>
-                                    <input type="text" placeholder="option 1"/>
+                                    <input type="text" placeholder="option 1" name="option_1"/>
                                 </li>
-                                <li class="option buffer">
+                                <li class="buffer">
                                     <input type="radio" name="option"/>
-                                    <input type="text" placeholder="option 2"/>
+                                    <input type="text" placeholder="option 2" name="option_2"/>
                                 </li>
                             </ul>
                         </form>
@@ -107,7 +107,7 @@
     $(document).ready(function() {
         $("#add").click(function() {
             counter++
-            $(".option-list").append("<li class='buffer " + counter + "'> <input type='radio' name='option " + counter + "'/> <input type='text' placeholder='option " + counter + "'> </li>");
+            $(".option-list").append("<li class='buffer " + counter + "'> <input type='radio' name='option'/> <input type='text' placeholder='option " + counter + "' name='option_" + counter + "'> </li>");
             document.getElementById("counter").setAttribute("value", counter);
         });
 

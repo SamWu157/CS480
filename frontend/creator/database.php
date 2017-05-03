@@ -15,45 +15,45 @@ if ($conn->connect_error) {
 $database = "polls";
 $sql = "CREATE DATABASE IF NOT EXISTS " . $database;
 if ($conn->query($sql) == TRUE) {
-    echo "Database created successfully\n";
 } else {
     echo "Error creating database: " . $conn->error;
-    echo "\n";
 }
 $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error());
-    echo "\n";
 }
 
 // sql to create table
 if (empty($_POST["poll_name"])) {
     echo "Error: Poll Name cannot be empty";
 } else {
-    echo $_POST["counter"] . " ";
     $counter = $_POST["counter"];
     $option = array();
-    for ($x = 0; $x < counter; $x++) {
-        if (empty($_POST["option " . $x])) {
-            echo "empty option ";
+    $valid = true;
+    for ($x = 1; $x <= $counter; $x++) {
+        $current = $_POST["option_" . (string)$x];
+        if (empty($current)) {
+            $valid = false;
+            break;
         } else {
-            //array_push($option, $_POST["option " . $x];
+            $option[] = $current;
         }
     }
-    $table = "`" . $_POST["poll_name"] . "`";
-    $sql = "CREATE TABLE " . $table . " (opt TEXT)";
-    if ($conn->query($sql) === TRUE) {
-        echo "TABLE " . $table . " created successfully\n";
+    if ($valid) {
+        $table = "`" . $_POST["poll_name"] . "`";
+        $sql = "CREATE TABLE " . $table . " (opt TEXT)";
+        if ($conn->query($sql) === TRUE) {
+            echo "TABLE " . $table . " created successfully\n";
+            // init table
+            foreach ($option as $o) {
+                $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')"; 
+                $conn->query($sql);
+            }
+        } else {
+            echo "Error creating table: " . $conn->error;
+        }
     } else {
-        echo "Error creating table: " . $conn->error;
-        echo "\n";
-    }
-
-    // init table
-    $option = array("option 1", "option 2");
-    foreach ($option as $o) {
-        $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')"; 
-        $conn->query($sql);
+        echo "Error: empty option";
     }
 }
 
