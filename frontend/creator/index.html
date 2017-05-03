@@ -64,23 +64,23 @@
                     </div>
                 </div>
                 <form action="create.php" method="post">
-                    <div class="row buffer">
-                        Poll Name: <input type="text" name="poll_name"/>
-                        <ul class="option-list">
-                                <li class="buffer">
-                                    <input type="radio" name="option"/>
-                                    <input type="text" placeholder="option 1" name="option_1"/>
-                                </li>
-                                <li class="buffer">
-                                    <input type="radio" name="option"/>
-                                    <input type="text" placeholder="option 2" name="option_2"/>
-                                </li>
-                            </ul>
-                        <input type="button" id="add" value="add"/>
-                        <input type="button" id="remove" value="remove"/>
-                        <input type="hidden" id="counter" name="counter">
-                        <input type="submit" value="submit">
+                    <div class='row buffer'>
+                        <b>Poll Name: </b><input type="text" name="poll_name"/>
                     </div>
+                    <ul class="option-list">
+                        <li class="buffer">
+                            <input type="radio" name="option"/>
+                            <input type="text" placeholder="option 1" name="option_1"/>
+                        </li>
+                        <li class="buffer">
+                            <input type="radio" name="option"/>
+                            <input type="text" placeholder="option 2" name="option_2"/>
+                        </li>
+                    </ul>
+                    <input type="button" id="add" value="add"/>
+                    <input type="button" id="remove" value="remove"/>
+                    <input type="hidden" id="counter" name="counter">
+                    <input type="submit" value="submit">
                 </form>
             </div>
         </div>

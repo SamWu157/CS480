@@ -95,11 +95,10 @@
                 $sql = "SHOW TABLES";
                 $response = $conn->query($sql);
 
-                if ($response) {
-                    echo '<table style="width:100%"> 
-                            <tr>
-                            <th>Polls</th>
-                            </tr>';
+                if ($response->num_rows > 0) {
+                    echo '<table> 
+                            <tr> <th>Polls</th>
+                            <th>Delete</th> </tr>';
                     while ($row = $response->fetch_row()) {
                         $poll = $row[0];
                         echo '<tr><td>' .
@@ -109,6 +108,7 @@
                             '<input type="hidden" value="' .
                             $row[0] . '">' .
                             '</td>';
+                        echo '<td><a href="delete.php?poll=' . $poll . '">X</a></td>';
                         echo '</tr>';
                     }
                     echo '</table>';
