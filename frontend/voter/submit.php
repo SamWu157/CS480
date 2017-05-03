@@ -68,9 +68,19 @@
                 <?php
                 $poll_name = $_POST["poll_name"];
                 $choice = $_POST["opt"];
-                echo "<b>Poll: </b>" . $poll_name . "<br>";
-                echo "<b>Choice: </b>" . $choice . "<br>";
-                echo "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'";
+                $voter = $_POST["voter"];
+                if (empty($voter)) {
+                    echo "<b>Error: </b>ID cannot be empty";
+                } else {
+                    if (empty($choice)) {
+                        echo "<b>Error: </b>Must pick an option";
+                    } else {
+                        echo "<b>Poll: </b>" . $poll_name . "<br>";
+                        echo "<b>Voter ID: </b>" . $voter . "<br>";
+                        echo "<b>Choice: </b>" . $choice . "<br>";
+                        echo "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'";
+                    }
+                }
                 ?>
                 </div>
             </div>

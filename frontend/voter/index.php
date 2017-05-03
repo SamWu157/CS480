@@ -98,7 +98,7 @@
                 if ($response->num_rows > 0) {
                     echo '<table> 
                             <tr> <th>Polls</th>
-                            <th>Delete</th> </tr>';
+                            <th>Delete *for testing purposes</th> </tr>';
                     while ($row = $response->fetch_row()) {
                         $poll = $row[0];
                         echo '<tr><td>' .

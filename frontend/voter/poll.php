@@ -95,6 +95,7 @@
 
                 if ($result->num_rows > 0) {
                     echo "<form action='submit.php' method='post'>" .
+                        "<h3>Voter ID: <input type='text' name='voter'></h3>" .
                         "<h3>" . $poll . "</h3>" .
                         "<input type='hidden' name='poll_name'" .
                         " value='" . $poll . "'>" .
