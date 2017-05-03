@@ -63,6 +63,7 @@
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
+<!--<<<<<<< HEAD -->
                 <div class="row buffer" >
                     Poll Name: <input type="text" id="title"/>
                     <form>
@@ -82,11 +83,10 @@
                 </div>
                 <div class="row buffer">
                   <input type="button" id="submit" value="submit"/>
-                </div
+                </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 
@@ -104,24 +104,22 @@
     });
     </script>
 
-    <script type='text/javascript' >
+    <script >
       var counter = 2;
     </script>
 
     <!-- add/remove button-->
     <script>
-
-    var counter=2;
     $(document).ready(function() {
         $("#add").click(function() {
-            counter++
+            counter++;
             $(".option-list").append("<li class='buffer "+ counter +"'> <input type='radio' name='option'/> <input type='text' id='optionp' placeholder='option " + counter + "'> </li>");
         });
 
         $("#remove").click(function() {
             $("."+counter).remove();
             if (counter > 2) {
-                counter--
+                counter--;
             }
         });
     });
@@ -131,11 +129,13 @@
     $(document).ready(function() {
         $("#submit").click(function() {
           alert(counter)
+
           var titleuse = document.getElementById('title').value
           var optionarray = []
-          for (i=0 ; i < counter ; i++) {
-            var optionval = document.getElementById("option"+counter).value
-            alert("submitting " + optionval)
+          alert("Title : "+titleuse)
+          for (i=1 ; i <= counter ; i++) {
+            var optionval = document.getElementById("option"+i).value
+            alert("option "+ (i) +" is " + optionval)
   //          optionarray.push(optionval)
           }
             });
