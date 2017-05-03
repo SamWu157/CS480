@@ -63,23 +63,26 @@
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
-                <div class="row buffer">
-                    Poll Name: <input type="text"/>
+                <div class="row buffer" >
+                    Poll Name: <input type="text" id="title"/>
                     <form>
                         <ul class="option-list">
                             <li class="buffer">
                                 <input type="radio" name="option"/>
-                                <input type="text" placeholder="option 1"/>
+                                <input type="text" id='option1' placeholder="option 1"/>
                             </li>
                             <li class="option buffer">
-                                <input type="radio" name="option"/>
-                                <input type="text" placeholder="option 2"/>
+                               <input type="radio" name="option"/>
+                                <input type="text" id='option2' placeholder="option 2"/>
                             </li>
                         </ul>
                     </form>
                     <input type="button" id="add" value="add"/>
                     <input type="button" id="remove" value="remove"/>
                 </div>
+                <div class="row buffer">
+                  <input type="button" id="submit" value="submit"/>
+                </div
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -101,13 +104,18 @@
     });
     </script>
 
+    <script type='text/javascript' >
+      var counter = 2;
+    </script>
+
     <!-- add/remove button-->
     <script>
+
     var counter=2;
     $(document).ready(function() {
         $("#add").click(function() {
             counter++
-            $(".option-list").append("<li class='buffer "+ counter +"'> <input type='radio' name='option'/> <input type='text' placeholder='option " + counter + "'> </li>");
+            $(".option-list").append("<li class='buffer "+ counter +"'> <input type='radio' name='option'/> <input type='text' id='optionp' placeholder='option " + counter + "'> </li>");
         });
 
         $("#remove").click(function() {
@@ -116,6 +124,23 @@
                 counter--
             }
         });
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        $("#submit").click(function() {
+          alert(counter)
+          var titleuse = document.getElementById('title').value
+          var optionarray = []
+          for (i=0 ; i < counter ; i++) {
+            var optionval = document.getElementById("option"+counter).value
+            alert("submitting " + optionval)
+  //          optionarray.push(optionval)
+          }
+            });
+
+
     });
     </script>
 
