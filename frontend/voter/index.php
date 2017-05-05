@@ -92,23 +92,35 @@
                 }
 
                 // tables query
-                $sql = "SHOW TABLES";
-                $response = $conn->query($sql);
 
-                if ($response->num_rows > 0) {
-                    echo '<table> 
-                            <tr> <th>Polls</th>
-                            <th>Delete *for testing purposes</th> </tr>';
-                    while ($row = $response->fetch_row()) {
-                        $poll = $row[0];
-                        echo '<tr><td>' .
-                            '<a href="poll.php?poll=' .
-                            $poll . '">' .
-                            $row[0] . '</a>' .
-                            '<input type="hidden" value="' .
-                            $row[0] . '">' .
+                // get all tables
+                $sql = "SELECT id, poll FROM creators";
+                $result = $conn->query($sql);
+
+                if ($result ->num_rows > 0) {
+                    echo '<table> <tr> <th>Polls</th>' .
+                        '<th>Creator</th>' .
+                        '<th>Delete *for testing purposes</th>' .
+                        '</tr>';
+
+                    // list available polls 
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<tr>';
+
+                        // get information
+                        $poll = $row["poll"];
+                        $creator = $row["id"];
+
+                        echo '<td>' .
+                            '<a href="poll.php?poll=' . $poll . 
+                            '&creator=' . $creator . '">' .
+                            $poll . '</a>' .
                             '</td>';
-                        echo '<td><a href="delete.php?poll=' . $poll . '">X</a></td>';
+                        echo '<td>' . $creator . '</td>';
+                        echo '<td>' . 
+                            '<a href="delete.php?poll=' . $poll . 
+                            '&creator=' . $creator . '">' . 
+                            'X</a></td>';
                         echo '</tr>';
                     }
                     echo '</table>';

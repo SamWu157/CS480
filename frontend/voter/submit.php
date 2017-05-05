@@ -66,9 +66,12 @@
                 <h3>Vote Submitted</h3>
                 <p>*need to add blockchain integration</p>
                 <?php
+                // get information
                 $poll_name = $_POST["poll_name"];
+                $creator = $_POST["creator"];
                 $choice = $_POST["opt"];
                 $voter = $_POST["voter"];
+
                 if (empty($voter)) {
                     echo "<b>Error: </b>ID cannot be empty";
                 } else {
@@ -76,6 +79,7 @@
                         echo "<b>Error: </b>Must pick an option";
                     } else {
                         echo "<b>Poll: </b>" . $poll_name . "<br>";
+                        echo "<b>Creator ID:</b>" . $creator . "<br>";
                         echo "<b>Voter ID: </b>" . $voter . "<br>";
                         echo "<b>Choice: </b>" . $choice . "<br>";
                     }

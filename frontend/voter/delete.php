@@ -75,13 +75,28 @@
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error());
                 }
+
+                // get info
                 $poll_name = $_GET["poll"];
-                $sql = "DROP TABLE `" . $poll_name . "`";
+                $creator = $_GET["creator"];
+                $table = $creator . ":" . $poll_name;
+
+                // delete table
+                $sql = "DROP TABLE `" . $table . "`";
                 if ($conn->query($sql) === TRUE) {
-                    echo "<b>Poll Deleted: </b>" . $poll_name;
                 } else {
                     echo "<b>Error: </b>" . $conn->error;
                 }
+
+                // remove from creators table
+                $sql = "DELETE FROM creators WHERE poll='" 
+                    . $poll_name . "'";
+                if ($conn->query($sql) === TRUE) {
+                    echo "<b>Poll Deleted: </b>" . $table;
+                } else {
+                    echo "<b>Error: </b>" . $conn->error;
+                }
+
                 echo "<br>";
                 echo "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>";
                 echo "<input type='button' value='vote' class='buffer' onClick=window.location='index.php'>";

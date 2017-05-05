@@ -31,3 +31,5 @@ Poll Creator using Blockchain API
 9. Poll expires and triggers generation of poll results
 10. (Substep) Poll result analysis and statistics are generated (extends)
 
+### Required Diagrams
+* context diagram

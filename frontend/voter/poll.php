@@ -89,17 +89,27 @@
                 }
 
                 // tables query
+                //
+                // get information
                 $poll = $_GET['poll'];
-                $sql = "SELECT * FROM `". $poll . "`";
-                $result = $conn->query($sql);
+                $creator = $_GET['creator'];
+                $table = $creator . ":" . $poll;
 
+                // query for poll information
+                $sql = "SELECT * FROM `". $table . "`";
+                $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
+                    // display poll
+                    echo "<h3>" . $poll . " by " . $creator . "</h3>";
+                    echo "<br>";
+                    
                     echo "<form action='submit.php' method='post'>" .
-                        "<h3>Voter ID: <input type='text' name='voter'></h3>" .
-                        "<h3>" . $poll . "</h3>" .
-                        "<input type='hidden' name='poll_name'" .
-                        " value='" . $poll . "'>" .
-                        "<ul>";
+                        "<h4>Voter ID: <input type='text' name='voter'></h4>";
+                    echo "<input type='hidden' name='poll_name' " .
+                        "value='" . $poll . "'>";
+                    echo "<input type='hidden' name='creator' " .
+                        "value='" . $creator . "'>";
+                    echo "<ul>";
                     while ($row = $result->fetch_assoc()) {
                         echo "<li class='buffer'>" .
                             "<input type='radio' name='opt'" .

@@ -75,25 +75,54 @@
                     die("Connection failed: " . $conn->connect_error());
                 }
 
-                // sql to create table
-                echo "<div class='row buffer'>";
-                if (empty($_POST["poll_name"])) {
+                $poll_name = $_POST["poll_name"];
+                $creator = $_POST["creator"]; 
+                $counter = $_POST["counter"];
+                $option = array();
+                $valid = true;
+
+                // check creator id
+                if (empty($creator)){
+                    $valid = false;
+                    echo "<div class='row buffer'>";
+                    echo "<b>Error: </b>Creator ID cannot be empty";
+                    echo "</div>";
+                }
+
+                // check poll name
+                if (empty($poll_name)){
+                    $valid = false;
+                    echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Poll Name cannot be empty";
-                } else {
-                    $counter = $_POST["counter"];
-                    $option = array();
-                    $valid = true;
-                    for ($x = 1; $x <= $counter; $x++) {
-                        $current = $_POST["option_" . (string)$x];
-                        if (empty($current)) {
-                            $valid = false;
-                            break;
-                        } else {
-                            $option[] = $current;
-                        }
+                    echo "</div>";
+                } 
+
+                // get/check options
+                for ($x = 1; $x <= $counter; $x++) {
+                    $current = $_POST["option_" . (string)$x];
+                    if (empty($current)) {
+                        echo "<div class='row buffer'>";
+                        echo "<b>Error: </b>Option cannot be empty";
+                        echo "</div>";
+                        $valid = false;
+                        break;
+                    } else {
+                        $option[] = $current;
                     }
-                    if ($valid) {
-                        $table = "`" . $_POST["poll_name"] . "`";
+                }
+
+                // create tables
+                if ($valid) {
+                    echo "<div class='row buffer'>";
+
+                    // add to id table
+                    $sql = "INSERT INTO creators (id, poll) VALUES ('" . $creator . "', '" . $poll_name . "')"; 
+                    if ($conn->query($sql) === FALSE) {
+                        echo "<b>Error creating tables</b>: " . $conn->error; 
+                    } else {
+
+                        // create poll table
+                        $table = "`" . $creator . ":" . $poll_name . "`";
                         $sql = "CREATE TABLE " . $table . " (opt TEXT)";
                         if ($conn->query($sql) === TRUE) {
                             // init table
@@ -101,24 +130,21 @@
                                 $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')";
                                 $conn->query($sql);
                             }
-
                             // success
                             echo "<b>Poll Created: </b>" . $_POST["poll_name"];
                         } else {
                             echo "<b>Error creating table</b>: " . $conn->error;
                         }
-                    } else {
-                        echo "<b>Error: </b>empty option";
                     }
+
+                    echo "</div>";
                 }
-                echo "</div>";
-                echo "<div class='row buffer'>" . 
-                    "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>" . 
+                echo "<div class='row buffer'>" .
+                    "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>" .
                     "<input type='button' value='create another' class='buffer' onClick=window.location='index.html'></div>";
 
                 $conn->close();
                 ?>
-
             </div>
         </div>
         <!-- /#page-content-wrapper -->
