@@ -92,7 +92,7 @@
                 $sql = "DELETE FROM creators WHERE poll='" 
                     . $poll_name . "'";
                 if ($conn->query($sql) === TRUE) {
-                    echo "<b>Poll Deleted: </b>" . $table;
+                    echo "<b>Poll Deleted: </b>" . $poll_name;
                 } else {
                     echo "<b>Error: </b>" . $conn->error;
                 }
