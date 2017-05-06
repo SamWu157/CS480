@@ -32,11 +32,9 @@ Poll Creator using Blockchain API
 10. (Substep) Poll result analysis and statistics are generated (extends)
 
 ### Setting up MySQL
-* root
+* root  
     CREATE USER 'cs480'@'localhost';
-    GRANT INSERT,CREATE,DELETE on * . * TO 'cs480'@'localhost';
-* cs480
+    GRANT INSERT,CREATE,DELETE,DROP on * . * TO 'cs480'@'localhost';
+* cs480  
     CREATE DATABASE polls;
     CREATE TABLE creators (id TEXT, poll TEXT);
-    CREATE USER 'cs480'@'localhost';
-    GRANT INSERT,CREATE,DELETE on * . * TO 'cs480'@'localhost';
