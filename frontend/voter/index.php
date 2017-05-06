@@ -97,7 +97,7 @@
                 $sql = "SELECT id, poll FROM creators";
                 $result = $conn->query($sql);
 
-                if ($result ->num_rows > 0) {
+                if ($result->num_rows > 0) {
                     echo '<table> <tr> <th>Polls</th>' .
                         '<th>Creator</th>' .
                         '<th>Delete *for testing purposes</th>' .

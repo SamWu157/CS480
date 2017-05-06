@@ -106,6 +106,11 @@
                         echo "</div>";
                         $valid = false;
                         break;
+                    } elseif (in_array($current, $option)) {
+                        echo "<div class='row buffer'>";
+                        echo "<b>Error: </b>Options cannot be the same";
+                        echo "</div>";
+                        $valid = false;
                     } else {
                         $option[] = $current;
                     }
@@ -123,7 +128,7 @@
 
                         // create poll table
                         $table = "`" . $creator . ":" . $poll_name . "`";
-                        $sql = "CREATE TABLE " . $table . " (opt TEXT)";
+                        $sql = "CREATE TABLE " . $table . " (id INT NOT NULL AUTO_INCREMENT, opt TEXT, PRIMARY KEY (id))";
                         if ($conn->query($sql) === TRUE) {
                             // init table
                             foreach ($option as $o) {

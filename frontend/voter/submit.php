@@ -78,10 +78,37 @@
                     if (empty($choice)) {
                         echo "<b>Error: </b>Must pick an option";
                     } else {
-                        echo "<b>Poll: </b>" . $poll_name . "<br>";
-                        echo "<b>Creator ID:</b>" . $creator . "<br>";
-                        echo "<b>Voter ID: </b>" . $voter . "<br>";
-                        echo "<b>Choice: </b>" . $choice . "<br>";
+
+                        // get choice id
+                        $servername = "localhost";
+                        $username = "cs480";
+                        $password = "password";
+                        $database = "polls";
+
+                        // connect
+                        $conn = new mysqli($servername, $username, $password, $database);
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error());
+                        } else {
+
+                            // query
+                            $table = $creator . ":" . $poll_name;
+                            $sql = "SELECT id FROM `" . $table . "` WHERE opt='" . $choice . "'";
+                            $result = $conn->query($sql);
+                            $choice_id = "";
+                            if ($result->num_rows > 0) {
+                                while($row = $result->fetch_assoc()) {
+                                    $choice_id = $row["id"];
+                                }
+                            }
+
+                            echo "<b>Poll: </b>" . $poll_name . "<br>";
+                            echo "<b>Creator ID:</b>" . $creator . "<br>";
+                            echo "<b>Voter ID: </b>" . $voter . "<br>";
+                            echo "<b>Choice ID: </b>" . $choice_id . "<br>";
+                            echo "<b>Choice: </b>" . $choice . "<br>";
+                        }
+                        $conn->close();
                     }
                 }
                 echo '<br>';
