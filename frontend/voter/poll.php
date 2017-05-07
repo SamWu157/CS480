@@ -46,6 +46,12 @@
                 <li>
                     <a href="index.php">Vote</a>
                 </li>
+                <li>
+                    <a href="../results/index.php">Results</a>
+                </li>
+                <li>
+                    <a href="../index.html">Team</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

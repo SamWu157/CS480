@@ -47,6 +47,9 @@
                     <a href="index.php">Vote</a>
                 </li>
                 <li>
+                    <a href="../results/index.php">Results</a>
+                </li>
+                <li>
                     <a href="../about/index.html">Team</a>
                 </li>
             </ul>

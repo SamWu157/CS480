@@ -44,10 +44,10 @@
                     <a href="../creator/index.html">Create</a>
                 </li>
                 <li>
-                    <a href="index.php">Vote</a>
+                    <a href="../voter/index.php">Vote</a>
                 </li>
                 <li>
-                    <a href="../results/index.php">Results</a>
+                    <a href="index.php">Results</a>
                 </li>
                 <li>
                     <a href="../about/index.html">Team</a>
@@ -100,7 +100,7 @@
 
                 echo "<br>";
                 echo "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>";
-                echo "<input type='button' value='vote' class='buffer' onClick=window.location='index.php'>";
+                echo "<input type='button' value='results' class='buffer' onClick=window.location='index.php'>";
                 ?>
                 </div>
             </div>

@@ -44,7 +44,10 @@
                     <a href="../creator/index.html">Create</a>
                 </li>
                 <li>
-                    <a href="index.php">Vote</a>
+                    <a href="#">Vote</a>
+                </li>
+                <li>
+                    <a href="../results/index.php">Results</a>
                 </li>
                 <li>
                     <a href="../about/index.html">Team</a>

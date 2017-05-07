@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-    <meta name="description" content="description" content="A polling app which allows users to create polls and vote on polls created by other users. Utilizes blockchain to store results">
+    <meta name="description" content="A polling app which allows users to create polls and vote on polls created by other users. Utilizes blockchain to store results.">
     <meta name="author" content="Quang Bui, Vu Dao, Ryan Gunawan, Brian Sun, Samantha Wu">
 
     <title>CS480: Blockchain Poll</title>
@@ -44,10 +44,10 @@
                     <a href="../creator/index.html">Create</a>
                 </li>
                 <li>
-                    <a href="index.php">Vote</a>
+                    <a href="../voter/index.php">Vote</a>
                 </li>
                 <li>
-                    <a href="../results/index.php">Results</a>
+                    <a href="index.php">Results</a>
                 </li>
                 <li>
                     <a href="../about/index.html">Team</a>
@@ -61,7 +61,7 @@
             <div class="container-fluid">
                 <div class="row buffer">
                     <div class="col-lg-12">
-                        <h1>Poll Deleted</h1>
+                        <h1>Results</h1>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
@@ -72,35 +72,50 @@
                 $password = "password";
                 $database = "polls";
 
+                // connect
                 $conn = new mysqli($servername, $username, $password, $database);
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error());
                 }
 
-                // get info
-                $poll_name = $_GET["poll"];
-                $creator = $_GET["creator"];
-                $table = $creator . ":" . $poll_name;
+                // tables query
 
-                // delete table
-                $sql = "DROP TABLE `" . $table . "`";
-                if ($conn->query($sql) === TRUE) {
+                // get all tables
+                $sql = "SELECT id, poll FROM creators";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    echo '<table> <tr> <th>Polls</th>' .
+                        '<th>Creator</th>' .
+                        '<th>Delete *for testing purposes</th>' .
+                        '</tr>';
+
+                    // list available polls 
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<tr>';
+
+                        // get information
+                        $poll = $row["poll"];
+                        $creator = $row["id"];
+
+                        echo '<td>' .
+                            '<a href="poll.php?poll=' . $poll . 
+                            '&creator=' . $creator . '">' .
+                            $poll . '</a>' .
+                            '</td>';
+                        echo '<td>' . $creator . '</td>';
+                        echo '<td>' . 
+                            '<a href="delete.php?poll=' . $poll . 
+                            '&creator=' . $creator . '">' . 
+                            'X</a></td>';
+                        echo '</tr>';
+                    }
+                    echo '</table>';
                 } else {
-                    echo "<b>Error: </b>" . $conn->error;
+                    echo "No polls found";
                 }
 
-                // remove from creators table
-                $sql = "DELETE FROM creators WHERE poll='" 
-                    . $poll_name . "'";
-                if ($conn->query($sql) === TRUE) {
-                    echo "<b>Poll Deleted: </b>" . $poll_name;
-                } else {
-                    echo "<b>Error: </b>" . $conn->error;
-                }
-
-                echo "<br>";
-                echo "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>";
-                echo "<input type='button' value='vote' class='buffer' onClick=window.location='index.php'>";
+                $conn->close();
                 ?>
                 </div>
             </div>

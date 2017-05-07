@@ -48,8 +48,12 @@
                     <a href="../voter/index.php">Vote</a>
                 </li>
                 <li>
+                    <a href="../results/index.php">Results</a>
+                </li>
+                <li>
                     <a href="../about/index.html">Team</a>
                 </li>
+
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -120,15 +124,16 @@
                 if ($valid) {
                     echo "<div class='row buffer'>";
 
-                    // add to id table
-                    $sql = "INSERT INTO creators (id, poll) VALUES ('" . $creator . "', '" . $poll_name . "')"; 
+                    // create poll table
+                    $table = "`" . $creator . ":" . $poll_name . "`";
+                    $sql = "CREATE TABLE " . $table . " (id INT NOT NULL AUTO_INCREMENT, opt TEXT, PRIMARY KEY (id))";
+
                     if ($conn->query($sql) === FALSE) {
                         echo "<b>Error creating tables</b>: " . $conn->error; 
                     } else {
+                        // add to id table
+                        $sql = "INSERT INTO creators (id, poll) VALUES ('" . $creator . "', '" . $poll_name . "')"; 
 
-                        // create poll table
-                        $table = "`" . $creator . ":" . $poll_name . "`";
-                        $sql = "CREATE TABLE " . $table . " (id INT NOT NULL AUTO_INCREMENT, opt TEXT, PRIMARY KEY (id))";
                         if ($conn->query($sql) === TRUE) {
                             // init table
                             foreach ($option as $o) {

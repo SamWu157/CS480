@@ -31,6 +31,19 @@ Poll Creator using Blockchain API
 9. Poll expires and triggers generation of poll results
 10. (Substep) Poll result analysis and statistics are generated (extends)
 
+### Frontend Layout
+* Blockchain Poll Homepage -> index.html
+    * Create -> creator/index.html
+        * Submit Page -> creator/submit.php
+    * Vote -> voter/index.php
+        * Poll Page -> voter/poll.php
+            * Submit Page -> voter/submit.php
+        * Delete Page -> voter/delete.php
+    * Results -> results/index.php
+        * Results Page **To Do**
+        * Delete Page -> results/delete.php
+    * Team -> about/index.html
+
 ### Setting up MySQL
 * root
     CREATE USER 'cs480'@'localhost';
