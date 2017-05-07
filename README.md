@@ -45,11 +45,13 @@ Poll Creator using Blockchain API
     * Team -> about/index.html
 
 ### Setting up MySQL
-* root
-    CREATE USER 'cs480'@'localhost';
-    GRANT INSERT,CREATE,DELETE on * . * TO 'cs480'@'localhost';
-* cs480
-    CREATE DATABASE polls;
-    CREATE TABLE creators (id TEXT, poll TEXT);
-    CREATE USER 'cs480'@'localhost';
-    GRANT INSERT,CREATE,DELETE on * . * TO 'cs480'@'localhost';
+* root  
+```sql
+CREATE USER 'cs480'@'localhost';  
+GRANT INSERT,CREATE,DELETE,DROP on * . * TO 'cs480'@'localhost';
+```
+* cs480  
+```sql
+CREATE DATABASE polls;
+CREATE TABLE creators (id TEXT, poll TEXT);
+```
