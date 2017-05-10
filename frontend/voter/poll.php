@@ -65,23 +65,7 @@
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
-                <!-- temporary poll 
-                <div class="row buffer">
-                    <h3>Temporary Poll</h3>
-                    <ul>
-                        <li class="buffer">
-                            <input type="radio" name="option">
-                            <h5>Option 1</h5>
-                        </li>
-                        <li class="buffer">
-                            <input type="radio" name="option">
-                            <h5>Option 2</h5>
-                        </li>
-                    </ul>
-                    <input type="button" value="submit" class= "buffer" id="submit">
-                </div>
-                -->
-                <div class="row buffer">
+               </div>
                 <?php
                 $servername = "localhost";
                 $username = "cs480";
@@ -131,7 +115,6 @@
 
                 $conn->close();
                 ?>
-                </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

@@ -99,7 +99,7 @@
                         $creator = $row["id"];
 
                         echo '<td>' .
-                            '<a href="poll.php?poll=' . $poll . 
+                            '<a href="results.php?poll=' . $poll . 
                             '&creator=' . $creator . '">' .
                             $poll . '</a>' .
                             '</td>';

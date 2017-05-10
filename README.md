@@ -55,3 +55,12 @@ GRANT INSERT,CREATE,DELETE,DROP on * . * TO 'cs480'@'localhost';
 CREATE DATABASE polls;
 CREATE TABLE creators (id TEXT, poll TEXT);
 ```
+
+### Blockchain Setup
+```
+multichain-util create cs480
+multichaind cs480 -daemon
+```
+* change password and port in creator/submit.php and voter/submit.php and results/results.php
+    * password in ~/.multichain/cs480/multichain.conf
+    * default-rpc-port in ~/.multichain/cs480/params.dat

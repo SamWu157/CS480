@@ -81,9 +81,17 @@
                 $poll_name = $_GET["poll"];
                 $creator = $_GET["creator"];
                 $table = $creator . ":" . $poll_name;
+                $voter_table = "vote:" . $creator . ":" . $poll_name;
 
                 // delete table
                 $sql = "DROP TABLE `" . $table . "`";
+                if ($conn->query($sql) === TRUE) {
+                } else {
+                    echo "<b>Error: </b>" . $conn->error;
+                }
+
+                // delete voter table
+                $sql = "DROP TABLE `" . $voter_table . "`";
                 if ($conn->query($sql) === TRUE) {
                 } else {
                     echo "<b>Error: </b>" . $conn->error;

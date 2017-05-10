@@ -66,9 +66,9 @@
                     </div>
                 </div>
                 <div class="row buffer">
-                <h3>Vote Submitted</h3>
-                <p>*need to add blockchain integration</p>
+                <h3>Vote Submission</h3>
                 <?php
+
                 // get information
                 $poll_name = $_POST["poll_name"];
                 $creator = $_POST["creator"];
@@ -77,6 +77,8 @@
 
                 if (empty($voter)) {
                     echo "<b>Error: </b>ID cannot be empty";
+                } elseif (!ctype_alnum($voter)) {
+                    echo "<b>Error: </b>ID can only contain alphanumeric characters";
                 } else {
                     if (empty($choice)) {
                         echo "<b>Error: </b>Must pick an option";
@@ -105,11 +107,49 @@
                                 }
                             }
 
-                            echo "<b>Poll: </b>" . $poll_name . "<br>";
-                            echo "<b>Creator ID:</b>" . $creator . "<br>";
-                            echo "<b>Voter ID: </b>" . $voter . "<br>";
-                            echo "<b>Choice ID: </b>" . $choice_id . "<br>";
-                            echo "<b>Choice: </b>" . $choice . "<br>";
+                            // hash values
+                            $voter = hash('sha256', $voter);
+
+                            // check voters
+                            $voter_table = "vote:" . $creator . ":" . $poll_name;
+                            $voter_list = array();
+                            $voter_valid = true;
+                            $sql = "SELECT * FROM `" . $voter_table . "`";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $voter_list[] = $row["id"];
+                                }
+                            }
+
+
+                            if (!in_array($voter, $voter_list)) {
+                                echo "<b>Poll: </b>" . $poll_name . "<br>";
+                                echo "<b>Creator ID:</b>" . $creator . "<br>";
+                                echo "<b>Voter ID: </b>" . $voter . "<br>";
+                                echo "<b>Choice ID: </b>" . $choice_id . "<br>";
+                                echo "<b>Choice: </b>" . $choice . "<br>";
+
+                                // add to voter database
+                                $sql = "INSERT INTO `" . $voter_table . "` (id) VALUES ('" . $voter . "')";
+
+                                // publish to stream
+                                $port = "6750";
+                                $rpcusername = "multichainrpc";
+                                $rpcpassword = "EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2";
+
+                                $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
+                                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "publish", "params": ["' . $poll_name . '", "' . $voter . '", "' . $choice_id . '"';
+                                $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
+                                $cmd = $a . $b . $c;
+
+                                $ret=system($cmd);
+                                $rets = json_decode($ret, true);
+                               
+                            } else {
+                                echo "Voter ID already voted";
+                            }
+                            $conn->query($sql);
                         }
                         $conn->close();
                     }

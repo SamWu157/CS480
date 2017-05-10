@@ -4,5 +4,3 @@
 
 multichain-cli publish poll $1 $2
 multichain-cli liststreamitems poll
-
-

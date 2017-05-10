@@ -82,6 +82,8 @@
                 $poll_name = $_POST["poll_name"];
                 $creator = $_POST["creator"]; 
                 $counter = $_POST["counter"];
+                $table = "`" . $creator . ":" . $poll_name . "`";
+                $voter_table = "`vote:" . $creator . ":" . $poll_name . "`";
                 $option = array();
                 $valid = true;
 
@@ -91,6 +93,11 @@
                     echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Creator ID cannot be empty";
                     echo "</div>";
+                } elseif (!ctype_alnum($creator)) {
+                    $valid = false;
+                    echo "<div class='row buffer'>";
+                    echo "<b>Error: </b>Creator ID can only contain alphanumeric characters";
+                    echo "</div>";
                 }
 
                 // check poll name
@@ -99,7 +106,12 @@
                     echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Poll Name cannot be empty";
                     echo "</div>";
-                } 
+                } elseif (!ctype_alnum($poll_name)) {
+                    $valid = false;
+                    echo "<div class='row buffer'>";
+                    echo "<b>Error: </b>Poll name can only contain alphanumeric characters";
+                    echo "</div>";
+                }
 
                 // get/check options
                 for ($x = 1; $x <= $counter; $x++) {
@@ -115,6 +127,10 @@
                         echo "<b>Error: </b>Options cannot be the same";
                         echo "</div>";
                         $valid = false;
+                    } elseif (!ctype_alnum($poll_name)) {
+                        echo "<div class='row buffer'>";
+                        echo "<b>Error: </b>Options can only contain alphanumeric characters";
+                        echo "</div>";
                     } else {
                         $option[] = $current;
                     }
@@ -125,8 +141,7 @@
                     echo "<div class='row buffer'>";
 
                     // create poll table
-                    $table = "`" . $creator . ":" . $poll_name . "`";
-                    $sql = "CREATE TABLE " . $table . " (id INT NOT NULL AUTO_INCREMENT, opt TEXT, PRIMARY KEY (id))";
+                    $sql = "CREATE TABLE " . $table . " (id TEXT, opt TEXT)";
 
                     if ($conn->query($sql) === FALSE) {
                         echo "<b>Error creating tables</b>: " . $conn->error; 
@@ -137,17 +152,45 @@
                         if ($conn->query($sql) === TRUE) {
                             // init table
                             foreach ($option as $o) {
-                                $sql = "INSERT INTO " . $table . "(opt) VALUES ('" . $o . "')";
+                                $hash_o = hash("md5", $o);
+                                $sql = "INSERT INTO " . $table . "(id, opt) VALUES ('" . $hash_o . "', '" . $o . "')";
                                 $conn->query($sql);
                             }
                             // success
-                            echo "<b>Poll Created: </b>" . $_POST["poll_name"];
+                            echo "<b>Poll Created: </b>" . $poll_name;
                         } else {
+                            echo "<b>Error creating table</b>: " . $conn->error;
+                        }
+
+                        // create voters table
+                        $sql = "CREATE TABLE " . $voter_table . " (id TEXT)";
+                        if (!($conn->query($sql))) {
                             echo "<b>Error creating table</b>: " . $conn->error;
                         }
                     }
 
                     echo "</div>";
+
+                    // create block stream
+                    // may need to edit port and password
+                    $port = '6750';
+                    $rpcusername = 'multichainrpc';
+                    $rpcpassword = 'EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2';
+                    $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
+                    $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "create", "params": ["stream", "' . $poll_name . '", false';
+                    $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
+                    $cmd = $a . $b . $c;
+
+                    $ret = system($cmd); 
+                    //$rets = json_decode($ret, true);
+                    //
+                    // subscribe to stream
+                    $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
+                    $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "subscribe", "params": ["' . $poll_name . '", false';
+                    $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
+                    $cmd = $a . $b . $c;
+                    $ret = system($cmd); 
+
                 }
                 echo "<div class='row buffer'>" .
                     "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>" .
