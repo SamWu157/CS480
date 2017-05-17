@@ -66,35 +66,101 @@
                     </div>
                 </div>
                 <div class="row buffer">
-                <h3>Vote Submission</h3>
                 <?php
-
-                // get information
-                $poll_name = $_GET["poll"];
 
                 // get stream items
                 $port = trim(file_get_contents('../config/port'));
                 $rpcusername = trim(file_get_contents('../config/rpc_username'));//"multichainrpc";
                 $rpcpassword = trim(file_get_contents('../config/rpc_password'));//"EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2";
 
-                // subscribe
+                $results = array();
+                $options = array();
+                $options_name = array();
+                // get option names
+                $servername = "localhost";
+                $username = "cs480";
+                $password = "password";
+                $database = "polls";
+
+                // create connection
+                $conn = new mysqli($servername, $username, $password, $database);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error());
+                }
+
+                $poll = $_GET["poll"];
+                $creator = $_GET["creator"];
+                $poll_name = "`" . $creator . ":" . $poll . "`";
+                $sql = "SELECT * FROM " . $poll_name;
+                $r = $conn->query($sql);
+                if ($r->num_rows > 0) {
+                    while ($row = $r->fetch_assoc()) {
+                        $id = $row["id"];
+                        $opt = $row["opt"];
+                        $options_name[$id] = $opt;
+                        $results[$id] = 0;
+                        $options[] = $id;
+                    }
+                } else {
+                    echo "<b>Error: </b> poll not found";
+                }
+
+                $conn->close();
 
                 $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
-                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "liststreamitems", "params": ["' . $poll_name . '", false';
+                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "liststreamitems", "params": ["' . $poll . '", false';
                 $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
                 $cmd = $a . $b . $c;
 
+                // parsing
                 $ret=system($cmd);
                 $rets = json_decode($ret, true);
-                //print_r($rets);
-                //
-                //
-                // parsing??? TODO
-                //
-                //
-                // get option names
-                
+                $r = $rets['result'];
+                echo "<br><br>";
+                foreach ($r as $x) {
+                    $key = $x['key'];
+                    $data = $x['data'];
+                    /*
+                    echo "<b>Key: </b>" . $key;
+                    echo "<br>";
+                    echo "<b>Data: </b>" . $data;
+                    echo "<br><br>";
+                     */
+                    $results[$data] += 1;
+                }
 
+                /*
+                print_r($results);
+                echo "<br><br>";
+                print_r($options);
+                echo "<br><br>";
+                print_r($options_name);
+                 */
+
+                $winner = array();
+                $size = count($winner);
+                foreach ($options as $o) {
+                    if (empty($winner)) {
+                        $winner[] = $o;
+                    } else {
+                        foreach ($winner as $win) {
+                            if ($results[$o] > $results[$win]) {
+                                $winner[$size] = $o;
+                            } else if ($results[$o] == $results[$win]) {
+                                $winner[] = $o;
+                                $size += 1;
+                            }
+                        }
+                    }
+                }
+
+                echo "<h3>Winner</h3>";
+                // display winner
+                foreach ($winner as $w) {
+                    $current = $options_name[$w];
+                    echo $current;
+                    echo "<br><br>";
+                }
                 ?>
                 </div>
             </div>
