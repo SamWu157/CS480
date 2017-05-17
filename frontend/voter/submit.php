@@ -77,7 +77,7 @@
 
                 if (empty($voter)) {
                     echo "<b>Error: </b>ID cannot be empty";
-                } elseif (!ctype_alnum($voter)) {
+                } elseif (!ctype_alnum(str_replace(' ', '', $voter))) {
                     echo "<b>Error: </b>ID can only contain alphanumeric characters";
                 } else {
                     if (empty($choice)) {

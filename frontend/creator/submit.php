@@ -93,7 +93,7 @@
                     echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Creator ID cannot be empty";
                     echo "</div>";
-                } elseif (!ctype_alnum($creator)) {
+                } elseif (!ctype_alnum(str_replace(' ', '', $creator))) {
                     $valid = false;
                     echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Creator ID can only contain alphanumeric characters";
@@ -106,7 +106,7 @@
                     echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Poll Name cannot be empty";
                     echo "</div>";
-                } elseif (!ctype_alnum($poll_name)) {
+                } elseif (!ctype_alnum(str_replace(' ', '', $poll_name))) {
                     $valid = false;
                     echo "<div class='row buffer'>";
                     echo "<b>Error: </b>Poll name can only contain alphanumeric characters";
@@ -127,10 +127,12 @@
                         echo "<b>Error: </b>Options cannot be the same";
                         echo "</div>";
                         $valid = false;
-                    } elseif (!ctype_alnum($poll_name)) {
+                    } elseif (!ctype_alnum(str_replace(' ', '', $current))) {
+                        $valid = false;
                         echo "<div class='row buffer'>";
                         echo "<b>Error: </b>Options can only contain alphanumeric characters";
                         echo "</div>";
+                        break;
                     } else {
                         $option[] = $current;
                     }
