@@ -61,6 +61,6 @@ CREATE TABLE creators (id TEXT, poll TEXT);
 multichain-util create cs480
 multichaind cs480 -daemon
 ```
-* change password and port in creator/submit.php and voter/submit.php and results/results.php
+* change password and port in config folder
     * password in ~/.multichain/cs480/multichain.conf
     * default-rpc-port in ~/.multichain/cs480/params.dat

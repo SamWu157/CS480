@@ -132,11 +132,12 @@
 
                                 // add to voter database
                                 $sql = "INSERT INTO `" . $voter_table . "` (id) VALUES ('" . $voter . "')";
-
+                                $conn->query($sql);
+                                
                                 // publish to stream
-                                $port = "6750";
-                                $rpcusername = "multichainrpc";
-                                $rpcpassword = "EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2";
+                                $port = trim(file_get_contents('../config/port'));
+                                $rpcusername = trim(file_get_contents('../config/rpc_username'));
+                                $rpcpassword = trim(file_get_contents('../config/rpc_password')); 
 
                                 $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
                                 $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "publish", "params": ["' . $poll_name . '", "' . $voter . '", "' . $choice_id . '"';
@@ -149,7 +150,6 @@
                             } else {
                                 echo "Voter ID already voted";
                             }
-                            $conn->query($sql);
                         }
                         $conn->close();
                     }

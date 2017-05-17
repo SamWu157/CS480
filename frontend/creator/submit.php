@@ -173,9 +173,10 @@
 
                     // create block stream
                     // may need to edit port and password
-                    $port = '6750';
-                    $rpcusername = 'multichainrpc';
-                    $rpcpassword = 'EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2';
+                    //
+                    $port = trim(file_get_contents('../config/port'));//'6750';
+                    $rpcusername = trim(file_get_contents('../config/rpc_username'));//'multichainrpc';
+                    $rpcpassword = trim(file_get_contents('../config/rpc_password'));//'EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2';
                     $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
                     $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "create", "params": ["stream", "' . $poll_name . '", false';
                     $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
@@ -195,7 +196,6 @@
                 echo "<div class='row buffer'>" .
                     "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>" .
                     "<input type='button' value='create another' class='buffer' onClick=window.location='index.html'></div>";
-
                 $conn->close();
                 ?>
             </div>

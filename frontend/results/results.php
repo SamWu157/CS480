@@ -73,9 +73,9 @@
                 $poll_name = $_GET["poll"];
 
                 // get stream items
-                $port = "6750";
-                $rpcusername = "multichainrpc";
-                $rpcpassword = "EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2";
+                $port = trim(file_get_contents('../config/port'));
+                $rpcusername = trim(file_get_contents('../config/rpc_username'));//"multichainrpc";
+                $rpcpassword = trim(file_get_contents('../config/rpc_password'));//"EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2";
 
                 // subscribe
 
@@ -87,6 +87,13 @@
                 $ret=system($cmd);
                 $rets = json_decode($ret, true);
                 //print_r($rets);
+                //
+                //
+                // parsing??? TODO
+                //
+                //
+                // get option names
+                
 
                 ?>
                 </div>
