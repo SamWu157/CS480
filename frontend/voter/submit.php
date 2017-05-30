@@ -89,6 +89,7 @@
                         $username = "cs480";
                         $password = "password";
                         $database = "polls";
+                        $valid = FALSE;
 
                         // connect
                         $conn = new mysqli($servername, $username, $password, $database);
@@ -140,13 +141,13 @@
                                 $rpcpassword = trim(file_get_contents('../config/rpc_password')); 
 
                                 $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
-                                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "publish", "params": ["' . $poll_name . '", "' . $voter . '", "' . $choice_id . '"';
+                                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "publish", "params": ["' . $table . '", "' . $voter . '", "' . $choice_id . '"';
                                 $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
                                 $cmd = $a . $b . $c;
 
-                                $ret=system($cmd);
+                                $ret= exec($cmd);
                                 $rets = json_decode($ret, true);
-                               
+                                $valid = TRUE;
                             } else {
                                 echo "Voter ID already voted";
                             }

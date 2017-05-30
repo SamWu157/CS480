@@ -180,24 +180,25 @@
                     $rpcusername = trim(file_get_contents('../config/rpc_username'));//'multichainrpc';
                     $rpcpassword = trim(file_get_contents('../config/rpc_password'));//'EktTXuc9EP3nKVD2GZVW2JJdxBVUTswc1YfC1mFpino2';
                     $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
-                    $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "create", "params": ["stream", "' . $poll_name . '", false';
+                    $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "create", "params": ["stream", "' . $table . '", false';
                     $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
                     $cmd = $a . $b . $c;
 
-                    $ret = system($cmd); 
+                    $ret = exec($cmd); 
                     //$rets = json_decode($ret, true);
                     //
                     // subscribe to stream
                     $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
-                    $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "subscribe", "params": ["' . $poll_name . '", false';
+                    $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "subscribe", "params": ["' . $table . '", false';
                     $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
                     $cmd = $a . $b . $c;
-                    $ret = system($cmd); 
-
+                    $ret = exec($cmd); 
                 }
-                echo "<div class='row buffer'>" .
+
+                echo "<div class='row buffer'>" . 
                     "<input type='button' value='back' class='buffer' onClick=window.location='../index.html'>" .
                     "<input type='button' value='create another' class='buffer' onClick=window.location='index.html'></div>";
+                echo "</div>";
                 $conn->close();
                 ?>
             </div>

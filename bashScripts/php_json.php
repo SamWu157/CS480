@@ -1,4 +1,4 @@
-<? php
+<?php
 $json = <<< JSON
 {
     "John": {
@@ -31,3 +31,4 @@ foreach($jsonIterator as $key => $val){
         echo "$key => $val\n";
     }
 }
+?>

@@ -18,6 +18,7 @@
 
     <!-- Other CSS -->
     <link href="other.css" rel="stylesheet">
+    <link href="graph.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,6 +67,7 @@
                     </div>
                 </div>
                 <div class="row buffer">
+
                 <?php
 
                 // get stream items
@@ -108,12 +110,12 @@
                 $conn->close();
 
                 $a = 'curl -s --user ' . $rpcusername . ':' . $rpcpassword . ' --data-binary \'';
-                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "liststreamitems", "params": ["' . $poll . '", false';
+                $b = '{"jsonrpc": "1.0", "id":"curltest", "method": "liststreamitems", "params": ["' . $poll_name . '", false';
                 $c = '] }\' -H "content-type: text/plain;" http://127.0.0.1:' . $port . '/';
                 $cmd = $a . $b . $c;
 
                 // parsing
-                $ret=system($cmd);
+                $ret=exec($cmd);
                 $rets = json_decode($ret, true);
                 $r = $rets['result'];
                 echo "<br><br>";
@@ -161,7 +163,35 @@
                     echo $current;
                     echo "<br><br>";
                 }
+
+                // table
+                echo "<div id='wrapper'>";
+                echo "<div class='chart'>";
+                echo "<h2>Graph</h2>";
+                echo "<table id='data-table' border='1' cellpadding='10' cellspacing='0'>";
+                echo "<caption>Votes</caption>";
+                echo "<thead>";
+                echo "<tr>";
+                echo "<td>&nbsp;</td>";
+                foreach ($options as $o) {
+                    $col = $options_name[$o];
+                    echo '<th scope="col">' . $col . '</th>';
+                }
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+                echo "<tr>";
+                echo "<th scope='row'>Votes</th>";
+                foreach ($options as $o) {
+                    $value = $results[$o];
+                    echo "<td>" . $value . "</td>";
+                }
+                echo "</tr>";
+                echo "</tbody>";
+                echo "</div>";
+
                 ?>
+                </table>
                 </div>
             </div>
         </div>

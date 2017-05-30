@@ -44,23 +44,46 @@ Poll Creator using Blockchain API
         * Delete Page -> results/delete.php
     * Team -> about/index.html
 
-### Setting up MySQL
-* root  
-```sql
-CREATE USER 'cs480'@'localhost';  
-GRANT INSERT,CREATE,DELETE,DROP on * . * TO 'cs480'@'localhost';
-```
-* cs480  
-```sql
-CREATE DATABASE polls;
-CREATE TABLE creators (id TEXT, poll TEXT);
-```
+# Setup
+1. Github (source code)
+2. MySQL
+3. Multichain/Blockchain
+4. Server
 
-### Blockchain Setup
+### 1. Github
+* clone repository
+    * https://github.com/SamWu157/CS480
+
+### 2. MySQL Setup
+* install MySQL
+    * https://dev.mysql.com/downloads/installer/
+* create users and grant permissions
+    * on root account create cs480 user and grant permissions
+    ```sql
+    CREATE USER 'cs480'@'localhost';  
+    GRANT INSERT,CREATE,DELETE,DROP on * . * TO 'cs480'@'localhost';
+    ```
+* create databases and tables
+    * on cs480 user create polls database and creators table
+    ```sql
+    CREATE DATABASE polls;
+    CREATE TABLE creators (id TEXT, poll TEXT);
+    ```
+
+### 3. Multichain/Blockchain Setup
+* install multichain
+    * http://www.multichain.com/download-install/
+* create cs480 blockchain
 ```
 multichain-util create cs480
 multichaind cs480 -daemon
 ```
 * change password and port in config folder
-    * password in ~/.multichain/cs480/multichain.conf
-    * default-rpc-port in ~/.multichain/cs480/params.dat
+    * password can be found in ~/.multichain/cs480/multichain.conf
+        * under rpc-password
+    * port can be found in ~/.multichain/cs480/params.dat
+        * under default-rpc-port
+
+### 4. Server 
+* install a web server and add php support
+    * I am using Apache
