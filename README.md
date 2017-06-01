@@ -71,8 +71,8 @@ Poll Creator using Blockchain API
 * create users and grant permissions
     * on root account create cs480 user and grant permissions
     ```sql
-    CREATE USER 'cs480'@'localhost';  
-    GRANT INSERT,CREATE,DELETE,DROP on * . * TO 'cs480'@'localhost';
+    CREATE USER 'cs480'@'localhost' IDENTIFIED BY 'password';  
+    GRANT INSERT,CREATE,DELETE,DROP ON * . * TO 'cs480'@'localhost';
     ```
 * create databases and tables
     * on cs480 user create polls database and creators table
