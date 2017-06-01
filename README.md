@@ -78,6 +78,7 @@ Poll Creator using Blockchain API
     * on cs480 user create polls database and creators table
     ```sql
     CREATE DATABASE polls;
+    use polls;
     CREATE TABLE creators (id TEXT, poll TEXT);
     ```
 
