@@ -49,7 +49,7 @@ Poll Creator using Blockchain API
 1. VM
 ## or
 ## Option 2
-1. Github (source code)
+1. Source Code (GitHub)
 2. MySQL
 3. Multichain/Blockchain
 4. Server
@@ -61,9 +61,10 @@ Poll Creator using Blockchain API
 * site contained at cs480.com
 
 ## Option 2
-### 1. Github
+### 1. Source Code
 * clone repository
     * https://github.com/SamWu157/CS480
+* install curl
 
 ### 2. MySQL Setup
 * install MySQL
@@ -72,7 +73,7 @@ Poll Creator using Blockchain API
     * on root account create cs480 user and grant permissions
     ```sql
     CREATE USER 'cs480'@'localhost' IDENTIFIED BY 'password';  
-    GRANT INSERT,CREATE,DELETE,DROP ON * . * TO 'cs480'@'localhost';
+    GRANT SELECT,INSERT,CREATE,DELETE,DROP ON * . * TO 'cs480'@'localhost';
     ```
 * create databases and tables
     * on cs480 user create polls database and creators table
