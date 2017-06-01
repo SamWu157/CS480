@@ -45,11 +45,22 @@ Poll Creator using Blockchain API
     * Team -> about/index.html
 
 # Setup
+## Option 1
+1. VM
+## or
+## Option 2
 1. Github (source code)
 2. MySQL
 3. Multichain/Blockchain
 4. Server
 
+## Option 1
+### 1. Virtual Machine
+* clone repository
+* load cs480.ovf into VM
+* site contained at cs480.com
+
+## Option 2
 ### 1. Github
 * clone repository
     * https://github.com/SamWu157/CS480
@@ -86,4 +97,5 @@ multichaind cs480 -daemon
 
 ### 4. Server 
 * install a web server and add php support
-    * I am using Apache
+    * I am using Apache on Ubuntu 16
+        * https://help.ubuntu.com/community/ApacheMySQLPHP
