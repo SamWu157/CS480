@@ -56,8 +56,9 @@ Poll Creator using Blockchain API
 
 ## Option 1
 ### 1. Virtual Machine
-* clone repository
-* load cs480.ovf into VM
+* download VM
+   * https://drive.google.com/open?id=0B1ooiGhv36AZdG1MUjUxUEJLbTA
+* load cs480-vm.ovf or cs480-vm-disk1.vmdk into VM
 * site contained at cs480.com
 
 ## Option 2
