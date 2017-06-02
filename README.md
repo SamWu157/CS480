@@ -59,6 +59,9 @@ Poll Creator using Blockchain API
 * download VM
    * https://drive.google.com/open?id=0B1ooiGhv36AZdG1MUjUxUEJLbTA
 * load cs480-vm.ovf or cs480-vm-disk1.vmdk into VM
+   * default password: a
+* start multichain
+```multichaind cs480 -daemon```
 * site contained at cs480.com
 
 ## Option 2
